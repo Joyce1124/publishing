@@ -4,28 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 
 public abstract class AbstractPo implements Serializable {
-    private Long id;
+    private Integer id;
 
     private Date createdTime;
 
     private Date updatedTime;
 
-    private String status;
+    private Integer status;
 
-    private String udf1;
+    private Integer version;
 
-    private String udf2;
-
-    private int version;
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
-
 
     public Date getCreatedTime() {
         return createdTime;
@@ -43,35 +38,19 @@ public abstract class AbstractPo implements Serializable {
         this.updatedTime = updatedTime;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public String getUdf1() {
-        return udf1;
-    }
-
-    public void setUdf1(String udf1) {
-        this.udf1 = udf1;
-    }
-
-    public String getUdf2() {
-        return udf2;
-    }
-
-    public void setUdf2(String udf2) {
-        this.udf2 = udf2;
-    }
-
-    public int getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 }
