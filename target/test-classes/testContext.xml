@@ -4,18 +4,29 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd"
        default-lazy-init="false">
+	<!-- datasource -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	    <property name="url" value="jdbc:mysql://10.45.9.160:3306/publishing?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;autoReconnectForPools=true" />
+	    <property name="username" value="root" />
+	    <property name="password" value="800best@com" />
+	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 容器里面配的数据源 -->
 		<property name="dataSource" ref="dataSource" />
+		<!-- mybatis的配置信息 和 po的mapper文件 -->
 		<property name="configLocation" value="classpath:WEB-INF/mybatis/mybatis-config.xml" />
 	</bean>
 
+	<!-- DAO层注入该bean, 进行数据库的操作 -->
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 		<constructor-arg index="1" value="REUSE" />
 	</bean>
 
-
+	<!-- transaction 事务管理 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
@@ -26,9 +37,4 @@
 		<property name="transactionManager" ref="transactionManager" />
 	</bean>
 
-	<!--<bean id="transactionInterceptor" class="com.best.wcs.interceptor.TransactionInterceptor" />-->
-	<!--<bean id="transactionOutInterceptor" class="com.best.wcs.interceptor.TransactionOutInterceptor" />-->
-	<!--<bean id="transactionJobInterceptor" class="com.best.wcs.interceptor.TransactionJobInterceptor" />-->
-
-	<!--<bean id="mybatisDialectInterceptor" class="com.best.wcs.interceptor.MybatisDialectInterceptor" />-->
 </beans>

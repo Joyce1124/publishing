@@ -2,91 +2,109 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.best.publishing.po.common.ProjectPo">
-	<sql id="tablename">project</sql>
+    <sql id="tablename">project</sql>
 
-	<!-- Create Po -->
-	<insert id="createPo">
-	    <selectKey keyProperty="id" resultType="long">
+    <!-- Create Po -->
+    <insert id="createPo">
+        <selectKey keyProperty="id" resultType="long">
             select LAST_INSERT_ID()
         </selectKey>
-		insert into
-		<include refid="tablename" />
-		(
-		<include refid="com.best.publishing.baseMapper.baseFieldCreate" />
-			<!--18-->moveHeaderId,
-		    <!--18-->moveDetailId,
-            <!--19-->moveNo,
-            <!--20-->skuId,
-            <!--21-->skuCode,
-            <!--22-->moveQtyUom,
-            <!--23-->fromLocId,
-            <!--24-->fromLocCode,
-            <!--25-->toLocId,
-            <!--26-->toLocCode,
-            <!--27-->fromLpnhId,
-            <!--28-->fromLpnCode,
-            <!--29-->toLpnhId,
-            <!--30-->toLpnCode
-		)
-		values (
-		<include refid="com.best.wcs.baseMapper.baseInstructionLotFieldCreateValue" />
-	       <!--18-->#{moveHeaderId,jdbcType=DECIMAL},
-		   <!--18-->#{moveDetailId,jdbcType=DECIMAL},
-           <!--19-->#{moveNo,jdbcType=VARCHAR},
-           <!--20-->#{skuId,jdbcType=DECIMAL},
-           <!--21-->#{skuCode,jdbcType=VARCHAR},
-           <!--22-->#{moveQtyUom,jdbcType=FLOAT},
-           <!--23-->#{fromLocId,jdbcType=DECIMAL},
-           <!--24-->#{fromLocCode,jdbcType=VARCHAR},
-           <!--25-->#{toLocId,jdbcType=DECIMAL},
-           <!--26-->#{toLocCode,jdbcType=VARCHAR},
-           <!--27-->#{fromLpnhId,jdbcType=DECIMAL},
-           <!--28-->#{fromLpnCode,jdbcType=VARCHAR},
-           <!--29-->#{toLpnhId,jdbcType=DECIMAL},
-           <!--30-->#{toLpnCode,jdbcType=VARCHAR}
-		)
-	</insert>
+        insert into
+        <include refid="tablename"/>
+        (
+        <include refid="com.best.publishing.baseMapper.baseFieldCreate"/>
+        <!--18-->user_id,
+        <!--19-->name,
+        <!--20-->level,
+        <!--21-->version,
+        <!--22-->repo_utl,
+        <!--23-->repo_username,
+        <!--24-->repo_password,
+        <!--25-->repo_mode,
+        <!--26-->repo_type,
+        <!--27-->deploy_from,
+        <!--28-->includes,
+        <!--29-->release_user,
+        <!--30-->release_to,
+        <!--31-->hosts,
+        <!--32-->pre_deploy,
+        <!--33-->post_deploy,
+        <!--34-->pre_release,
+        <!--35-->post_release_delay,
+        <!--36-->audit,
+        <!--37-->keep_version_num
+        )
+        values (
+        <include refid="com.best.publishing.baseMapper.baseFieldCreateValue"/>
+        <!--18-->#{userId,jdbcType=DECIMAL},
+        <!--19-->#{name,jdbcType=VARCHAR},
+        <!--20-->#{level,jdbcType=INTEGER},
+        <!--21-->#{version,jdbcType=VARCHAR},
+        <!--22-->#{repoUtl,jdbcType=VARCHAR},
+        <!--23-->#{repoUsername,jdbcType=VARCHAR},
+        <!--24-->#{repoPassword,jdbcType=VARCHAR},
+        <!--25-->#{repoMode,jdbcType=VARCHAR},
+        <!--26-->#{repoType,jdbcType=VARCHAR},
+        <!--27-->#{deployFrom,jdbcType=VARCHAR},
+        <!--28-->#{includes,jdbcType=VARCHAR},
+        <!--29-->#{releaseUser,jdbcType=VARCHAR},
+        <!--30-->#{releaseTo,jdbcType=VARCHAR},
+        <!--31-->#{hosts,jdbcType=VARCHAR},
+        <!--32-->#{preDeploy,jdbcType=VARCHAR},
+        <!--33-->#{postDeploy,jdbcType=VARCHAR},
+        <!--34-->#{preRelease,jdbcType=VARCHAR},
+        <!--35-->#{postReleaseDelay,jdbcType=INTEGER},
+        <!--36-->#{audit,jdbcType=VARCHAR},
+        <!--37-->#{keepVersionNum,jdbcType=VARCHAR}
+        )
+    </insert>
 
-	<!-- update Po -->
-	<update id="update">
-		update
-		<include refid="tablename" />
-		set
-		<include refid="com.best.wcs.baseMapper.baseInstructionLotFieldUpdateValue" />
-		  <!--18-->MOVEHEADERID = #{moveHeaderId,jdbcType=DECIMAL},
-		  <!--18-->MOVEDETAILID = #{moveDetailId,jdbcType=DECIMAL},
-	      <!--19-->MOVENO = #{moveNo,jdbcType=VARCHAR},
-	      <!--20-->SKUID = #{skuId,jdbcType=DECIMAL},
-	      <!--21-->SKUCODE = #{skuCode,jdbcType=VARCHAR},
-	      <!--22-->MOVEQTYUOM = #{moveQtyUom,jdbcType=FLOAT},
-	      <!--23-->FROMLOCID = #{fromLocId,jdbcType=DECIMAL},
-	      <!--24-->FROMLOCCODE = #{fromLocCode,jdbcType=VARCHAR},
-	      <!--25-->TOLOCID = #{toLocId,jdbcType=DECIMAL},
-	      <!--26-->TOLOCCODE = #{toLocCode,jdbcType=VARCHAR},
-	      <!--27-->FROMLPNHID = #{fromLpnhId,jdbcType=DECIMAL},
-	      <!--28-->FROMLPNCODE = #{fromLpnCode,jdbcType=VARCHAR},
-	      <!--29-->TOLPNHID = #{toLpnhId,jdbcType=DECIMAL},
-	      <!--30-->TOLPNCODE = #{toLpnCode,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=DECIMAL} and version = #{version,jdbcType=DECIMAL}
-	</update>
-	
-	<select id="search" resultMap="resultMap">
+    <!-- update Po -->
+    <update id="update">
+        update
+        <include refid="tablename"/>
+        set
+        <include refid="com.best.publishing.baseMapper.abstractPoColumn4Update"/>
+        <!--18-->user_id = #{user_id,jdbcType=DECIMAL},
+        <!--19-->name = #{name,jdbcType=VARCHAR},
+        <!--20-->level = #{level,jdbcType=INTEGER},
+        <!--21-->version = #{version,jdbcType=VARCHAR},
+        <!--22-->repo_utl = #{repo_utl,jdbcType=VARCHAR},
+        <!--23-->repo_username = #{repo_username,jdbcType=VARCHAR},
+        <!--24-->repo_password = #{repo_password,jdbcType=VARCHAR},
+        <!--25-->repo_mode = #{repo_mode,jdbcType=VARCHAR},
+        <!--26-->repo_type = #{repo_type,jdbcType=VARCHAR},
+        <!--27-->deploy_from = #{deploy_from,jdbcType=VARCHAR},
+        <!--28-->includes = #{includes,jdbcType=VARCHAR},
+        <!--29-->release_user = #{release_user,jdbcType=VARCHAR},
+        <!--30-->release_to = #{release_to,jdbcType=VARCHAR},
+        <!--31-->hosts = #{hosts,jdbcType=VARCHAR},
+        <!--32-->pre_deploy = #{pre_deploy,jdbcType=VARCHAR},
+        <!--33-->post_deploy = #{post_deploy,jdbcType=VARCHAR},
+        <!--34-->pre_release = #{pre_release,jdbcType=VARCHAR},
+        <!--35-->post_release_delay = #{post_release_delay,jdbcType=INTEGER},
+        <!--36-->audit = #{audit,jdbcType=VARCHAR},
+        <!--37-->keep_version_num = #{keep_version_num,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=DECIMAL} and lock_version = #{lockVersion,jdbcType=DECIMAL}
+    </update>
+
+    <select id="search" resultMap="resultMap">
         select o.* from
-        <include refid="tablename" />
+        <include refid="tablename"/>
         o
-        <include refid="where" />
+        <include refid="where"/>
     </select>
-    
-	
-	<select id="searchCount" resultType="java.lang.Long">
+
+
+    <select id="searchCount" resultType="java.lang.Long">
         select count(0) from
-        <include refid="tablename" />
+        <include refid="tablename"/>
         o
-        <include refid="where" />
+        <include refid="where"/>
     </select>
-    
-	<sql id="where">
-	    <where>
+
+    <sql id="where">
+        <where>
             <if test="createdTimeFrom != null">
                 and o.createdTime >= #{createdTimeFrom}
             </if>
@@ -99,56 +117,49 @@
             <if test="!@com.best.wcs.utils.EasyUtil@isStringEmpty(moveNo)">
                 and o.moveNo = #{moveNo}
             </if>
-            <if test = "whId != null">
+            <if test="whId != null">
                 and o.whId = #{whId}
             </if>
         </where>
-         order by o.createdTime desc
-	</sql>
-	
-	<!-- delete -->
-	<delete id="delete" parameterType="long">
-		<include refid="com.best.wcs.baseMapper.baseDelete" />
-	</delete>
+        order by o.createdTime desc
+    </sql>
 
-	<!-- get Po by id -->
-	<select id="getById" resultMap="resultMap" parameterType="long">
-		<include refid="com.best.wcs.baseMapper.baseGetById" />
-	</select>
+    <!-- delete -->
+    <delete id="delete" parameterType="long">
+        <include refid="com.best.publishing.baseMapper.baseDelete"/>
+    </delete>
 
-	<!-- get Po by idList -->
-	<select id="getByIdList" resultMap="resultMap">
-		<include
-			refid="com.best.wcs.baseMapper.baseGetByIdList" />
-	</select>
-
-    <select id="getNeedReSend" resultMap="resultMap">
-        <include refid="com.best.wcs.baseMapper.baseGetNeedReSend"/>
+    <!-- get Po by id -->
+    <select id="getById" resultMap="resultMap" parameterType="long">
+        <include refid="com.best.publishing.baseMapper.baseGetById"/>
     </select>
 
-    <select id="getFailedSend" resultMap="resultMap">
-        <include refid="com.best.wcs.baseMapper.baseGetFailedSend"/>
+    <!-- get Po by idList -->
+    <select id="getByIdList" resultMap="resultMap">
+        <include refid="com.best.publishing.baseMapper.baseGetByIdList"/>
     </select>
 
-    <select id="getMoveInstructionByMoveHeaderId" resultMap="resultMap">
-        select * from <include refid="tablename" /> o where o.moveheaderId = #{moveHeaderId}
-    </select>
-
-	<!-- result map-->
-	<resultMap id="resultMap" type="com.best.wcs.po.robot.WcsIoMoveOrder" extends="com.best.wcs.baseMapper.baseRobotLotResultMap">
-	      <!--18--><result column="MOVEHEADERID" jdbcType="DECIMAL" property="moveHeaderId" />
-		  <!--18--><result column="MOVEDETAILID" jdbcType="DECIMAL" property="moveDetailId" />
-	      <!--19--><result column="MOVENO" jdbcType="VARCHAR" property="moveNo" />
-	      <!--20--><result column="SKUID" jdbcType="DECIMAL" property="skuId" />
-	      <!--21--><result column="SKUCODE" jdbcType="VARCHAR" property="skuCode" />
-	      <!--22--><result column="MOVEQTYUOM" jdbcType="FLOAT" property="moveQtyUom" />
-	      <!--23--><result column="FROMLOCID" jdbcType="DECIMAL" property="fromLocId" />
-	      <!--24--><result column="FROMLOCCODE" jdbcType="VARCHAR" property="fromLocCode" />
-	      <!--25--><result column="TOLOCID" jdbcType="DECIMAL" property="toLocId" />
-	      <!--26--><result column="TOLOCCODE" jdbcType="VARCHAR" property="toLocCode" />
-	      <!--27--><result column="FROMLPNHID" jdbcType="DECIMAL" property="fromLpnhId" />
-	      <!--28--><result column="FROMLPNCODE" jdbcType="VARCHAR" property="fromLpnCode" />
-	      <!--29--><result column="TOLPNHID" jdbcType="DECIMAL" property="toLpnhId" />
-	      <!--30--><result column="TOLPNCODE" jdbcType="VARCHAR" property="toLpnCode" />
-	</resultMap>
+    <!-- result map-->
+    <resultMap id="resultMap" type="com.best.publishing.po.common.ProjectPo" extends="com.best.publishing.baseMapper.baseResultMap">
+        <!--18--><result column="user_id" jdbcType="DECIMAL" property="userId" />
+        <!--19--><result column="name" jdbcType="VARCHAR" property="name" />
+        <!--20--><result column="level" jdbcType="INTEGER" property="level" />
+        <!--21--><result column="version" jdbcType="VARCHAR" property="version" />
+        <!--22--><result column="repo_utl" jdbcType="VARCHAR" property="repoUtl" />
+        <!--23--><result column="repo_username" jdbcType="VARCHAR" property="repoUsername" />
+        <!--24--><result column="repo_password" jdbcType="VARCHAR" property="repoPassword" />
+        <!--25--><result column="repo_mode" jdbcType="VARCHAR" property="repoMode" />
+        <!--26--><result column="repo_type" jdbcType="VARCHAR" property="repoType" />
+        <!--27--><result column="deploy_from" jdbcType="VARCHAR" property="deployFrom" />
+        <!--28--><result column="includes" jdbcType="VARCHAR" property="includes" />
+        <!--29--><result column="release_user" jdbcType="VARCHAR" property="releaseUser" />
+        <!--30--><result column="release_to" jdbcType="VARCHAR" property="releaseTo" />
+        <!--31--><result column="hosts" jdbcType="VARCHAR" property="hosts" />
+        <!--32--><result column="pre_deploy" jdbcType="VARCHAR" property="preDeploy" />
+        <!--33--><result column="post_deploy" jdbcType="VARCHAR" property="postDeploy" />
+        <!--34--><result column="pre_release" jdbcType="VARCHAR" property="preRelease" />
+        <!--35--><result column="post_release_delay" jdbcType="INTEGER" property="postReleaseDelay" />
+        <!--36--><result column="audit" jdbcType="VARCHAR" property="audit" />
+        <!--37--><result column="keep_version_num" jdbcType="VARCHAR" property="keepVersionNum" />
+    </resultMap>
 </mapper>
