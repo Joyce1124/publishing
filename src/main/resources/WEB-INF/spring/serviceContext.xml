@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:aop="http://www.springframework.org/schema/aop"
+        xmlns:context="http://www.springframework.org/schema/context"
+	    xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+                    	http://www.springframework.org/schema/aop 
+                    	http://www.springframework.org/schema/aop/spring-aop.xsd
+                    	http://www.springframework.org/schema/context 
+                    	http://www.springframework.org/schema/context/spring-context.xsd"
+	default-lazy-init="false">
+	
+    <context:property-placeholder location="classpath:wcs.properties" />
+
+	<context:annotation-config/>
+	
+	<aop:aspectj-autoproxy/>
+
+    <bean id="sessionHelper" class="com.best.wcs.utils.common.SessionHelper" />
+
+    <bean id="configurationService" class="com.best.wcs.service.ConfigurationServiceImpl" init-method="initConfiguration" />
+
+	<bean id="loginService" class="com.best.wcs.service.LoginServiceImpl" />
+
+    <bean id="wcsHttpService" class="com.best.wcs.service.http.WcsHttpServiceImpl"/>
+
+    <bean id="robotJobService" class="com.best.wcs.service.robot.job.RobotJobServiceImpl"/>
+
+	<bean id="robotPickInstructionService" class="com.best.wcs.service.robot.RobotPickInstructionServiceImpl" />
+
+	<bean id="robotMoveInstructionService" class="com.best.wcs.service.robot.RobotMoveInstructionServiceImpl" />
+
+	<bean id="robotSoCancelInstructionService" class="com.best.wcs.service.robot.RobotSoCancelInstructionServiceImpl" />
+
+	<bean id="robotOperExcpInstructionService" class="com.best.wcs.service.robot.RobotOperExcpInstructionServiceImpl" />
+
+	<bean id="robotOutService" class="com.best.wcs.service.robot.RobotOutServiceImpl" />
+
+    <bean id="robotAsyncTaskService" class="com.best.wcs.service.robot.task.RobotAsyncTaskServiceImpl" init-method="init"/>
+
+	<bean id="instructionService" class="com.best.wcs.service.instruction.InstructionServiceImpl" />
+
+	<bean id="autoPickService" class="com.best.wcs.service.autopick.AutoPickServiceImpl" />
+
+    <bean id="transferLineService" class="com.best.wcs.service.transferline.TransferLineServiceImpl"/>
+
+    <bean id="transferLineJobService" class="com.best.wcs.service.transferline.job.TransferLineJobServiceImpl"/>
+
+    <bean id="weightLineService" class="com.best.wcs.service.weightline.WeightLineServiceImpl"/>
+
+	<bean id = "soOutCancelService" class="com.best.wcs.service.weightline.SoOutCancelServiceImpl"/>
+
+    <bean id="weightLineJobService" class="com.best.wcs.service.weightline.job.WeightLineJobServiceImpl"/>
+
+	<bean id="robotInstructionSendService" class="com.best.wcs.service.instruction.RobotInstructionSendServiceImpl" />
+	
+	<bean id="autoPickInstructionSendService" class="com.best.wcs.service.instruction.AutoPickInstructionSendServiceImpl" />
+
+	<bean id="transferLineInstructionSendService" class="com.best.wcs.service.instruction.TransferLineInstructionSendServiceImpl"/>
+
+	<bean id = "dpsPickInstructionService" class="com.best.wcs.service.digitalPickingSystem.DpsPickInstructionServiceImp"/>
+
+	<bean id = "dpsOutService" class="com.best.wcs.service.digitalPickingSystem.DpsOutServiceImpl"/>
+
+    <bean id="dpsJobService" class="com.best.wcs.service.digitalPickingSystem.job.DpsJobServiceImpl"/>
+</beans>

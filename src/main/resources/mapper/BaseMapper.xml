@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.best.publishing.baseMapper">
+
+    <sql id="baseFieldCreate">
+        <!-- 1-->id,
+        <!-- 2-->created_time,
+        <!-- 3-->updated_time,
+        <!-- 4-->status,
+        <!-- 5-->lock_version,
+
+    </sql>
+
+    <sql id="baseFieldCreateValue">
+        <!-- 1-->#{id,jdbcType=DECIMAL},
+        <!-- 2-->#{createdTime,jdbcType=TIMESTAMP},
+        <!-- 3-->#{updatedTime,jdbcType=TIMESTAMP},
+        <!-- 4-->#{status,jdbcType=INTEGER},
+        <!-- 5-->#{lockVersion,jdbcType=DECIMAL},
+
+    </sql>
+
+    <sql id="baseFieldUpdateValue">
+        <!-- 1-->updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+        <!-- 2-->status = #{status,jdbcType=INTEGER},
+        <!-- 3-->lock_version = lock_version + 1,
+
+    </sql>
+
+    <!-- get Po by id-->
+    <sql id="baseGetById">
+        select o.* from
+        <include refid="tablename"/>
+        o
+        where o.id = #{id,jdbcType=DECIMAL}
+    </sql>
+
+    <!-- get Po by idList-->
+    <sql id="baseGetByIdList">
+        select o.* from
+        <include refid="tablename"/>
+        o
+        where o.id in
+        <foreach item="iditem" index="index" collection="list" open="(" separator="," close=")">
+            #{list[${index}], javaType=Long}
+        </foreach>
+    </sql>
+
+
+    <!-- delete Po -->
+    <sql id="baseDelete">
+        delete from
+        <include refid="tablename"/>
+        where id = #{id,jdbcType=DECIMAL}
+    </sql>
+
+    <resultMap id="baseResultMap" type="com.best.publishing.po.AbstractPo">
+        <id column="id" jdbcType="DECIMAL" property="id"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="lock_version" jdbcType="DECIMAL" property="version"/>
+
+    </resultMap>
+
+</mapper>

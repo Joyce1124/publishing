@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/rabbit
+        http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <!-- rabbitMq连接 -->
+    <bean id="connectionFactory" class="com.oasis.bestRabbitClient.BestRabbitConnection">
+        <property name="addresses" value="${rabbitmq.addresses}"/>
+        <property name="username" value="${rabbitmq.username}"/>
+        <property name="password" value="${rabbitmq.password}"/>
+        <property name="virtualHost" value="${rabbitmq.virtualHost}"/>
+        <property name="channelCacheSize" value="50"/>
+        <property name="publisherConfirms" value="true"/>
+        <property name="publisherReturns" value="true"/>
+        <property name="heartBeat" value="0"/>
+        <property name="connectionTimeOut" value="30"/>
+    </bean>
+
+    <bean id="admin" class="com.oasis.bestRabbitClient.BestRabbitAdmin">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+    <!-- 注册队列 -->
+    <rabbit:queue name="instructionQueue" durable="true" />
+
+    <!-- 指令队列 -->
+    <bean id="container" class="com.oasis.bestRabbitClient.BestRabbitContainer" destroy-method="stop">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="concurrentConsumers" value="4"/>
+        <property name="prefetchCount" value="100"/>
+        <!-- 指令队列的名字 -->
+        <property name="queueName" value="instructionQueue"/>
+        <property name="messageListener" ref="instructionMessageListener"/>
+        <property name="start" value="true"/>
+        <property name="requeueRejected" value="false"/>
+    </bean>
+
+    <!-- 指令消费监听器 -->
+    <bean id="instructionMessageListener" class="com.best.wcs.mq.InstructionMessageListener"/>
+
+
+</beans>
